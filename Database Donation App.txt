@@ -1,0 +1,137 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.4.11-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             11.0.0.5919
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for app
+CREATE DATABASE IF NOT EXISTS `app` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `app`;
+
+-- Dumping structure for table app.charity
+CREATE TABLE IF NOT EXISTS `charity` (
+  `donation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `charity_name` varchar(50) NOT NULL,
+  `charity_id` int(10) NOT NULL DEFAULT 0,
+  `user_id` int(10) unsigned NOT NULL,
+  `Item_points` int(255) NOT NULL DEFAULT 0,
+  `item_description` varchar(50) NOT NULL,
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `customer` varchar(50) NOT NULL,
+  PRIMARY KEY (`donation_id`) USING BTREE,
+  KEY `FK_charity_user` (`user_id`),
+  CONSTRAINT `FK_charity_user` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON DELETE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table app.charity: ~8 rows (approximately)
+/*!40000 ALTER TABLE `charity` DISABLE KEYS */;
+INSERT INTO `charity` (`donation_id`, `charity_name`, `charity_id`, `user_id`, `Item_points`, `item_description`, `date_added`, `customer`) VALUES
+	(6, 'Oxfam', 2, 10, 10, 'shirt', '2020-05-08 14:38:10', 'Nala'),
+	(8, 'Vincent\'s', 13, 9, 50, 'shoes', '2020-05-08 14:38:24', 'Welly'),
+	(15, 'Enable Ireland', 15, 9, 50, 'pants', '2020-05-08 14:47:01', 'Welly'),
+	(19, 'NCBI', 6, 8, 20, 'shirt', '2020-05-08 14:47:05', 'Resende'),
+	(21, 'Oxfam', 2, 10, 100, 'jacket', '2020-05-17 16:47:02', 'Nala'),
+	(22, 'Oxfam', 2, 8, 300, 'coat', '2020-05-24 00:00:00', 'Resende'),
+	(23, 'Oxfam', 2, 9, 100, 'pants', '2020-05-24 00:00:00', 'Welly'),
+	(24, 'NCBI', 6, 10, 200, 'pants and shirts', '2020-05-24 00:00:00', 'Nala'),
+	(25, 'Vincents', 13, 8, 500, 'coats and shoes', '2020-05-24 00:00:00', 'Resende');
+/*!40000 ALTER TABLE `charity` ENABLE KEYS */;
+
+-- Dumping structure for table app.customer_table
+CREATE TABLE IF NOT EXISTS `customer_table` (
+  `customer_tableId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `points_received` int(11) NOT NULL,
+  `points_taken` int(11) NOT NULL,
+  PRIMARY KEY (`customer_tableId`) USING BTREE,
+  KEY `FK1_user_table_user` (`user_id`) USING BTREE,
+  CONSTRAINT `FK1_user_login` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON DELETE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table app.customer_table: ~3 rows (approximately)
+/*!40000 ALTER TABLE `customer_table` DISABLE KEYS */;
+INSERT INTO `customer_table` (`customer_tableId`, `user_id`, `first_name`, `last_name`, `address`, `phone`, `points_received`, `points_taken`) VALUES
+	(1, 8, 'Karl', 'Resende', 'Gardiner Street', 2147483647, 150, 100),
+	(2, 9, 'Welly', 'Almeida', 'Dame Street', 838411723, 50, 50),
+	(3, 10, 'Nala', 'Cat', 'O Connel Street', 838411897, 50, 0);
+/*!40000 ALTER TABLE `customer_table` ENABLE KEYS */;
+
+-- Dumping structure for table app.login
+CREATE TABLE IF NOT EXISTS `login` (
+  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table app.login: ~17 rows (approximately)
+/*!40000 ALTER TABLE `login` DISABLE KEYS */;
+INSERT INTO `login` (`user_id`, `username`, `password`, `email`, `role`) VALUES
+	(1, 'Vivian', '12345678', 'vivi@gmail.com', 'admin'),
+	(2, 'Oxfam', 'test1234', 'daniel@gmail.com', 'charity'),
+	(5, 'Tesco', '87654321', 'karl@gmail.com', 'shop'),
+	(6, 'NCBI', 'pass1234', 'marcus@mail', 'charity'),
+	(8, 'Resende', '1234test', 'resende@gmail.com', 'customer'),
+	(9, 'Welly', 'asdfghjk', 'welly@gmail.com', 'customer'),
+	(10, 'Nala', 'qwertyui', 'nala@gmail.com', 'customer'),
+	(12, 'TK Maxx', 'zxcvbnml', 'leo@gmail.com', 'shop'),
+	(13, 'Vincents', '09876543', 'paula@gmail.com', 'charity'),
+	(14, 'Dunnes', '74185296', 'dunnes@gmail.com', 'shop'),
+	(15, 'Enable Ireland', '36985274', 'enableireland@gmail.com', 'charity'),
+	(17, 'Leo', '1234pass', 'leo@gmail.com', 'customer'),
+	(18, 'Camila', 'b4af804009cb036a4ccdc33431ef9ac9', 'camila@gmail.com', 'shop'),
+	(19, 'Carolina', 'pass!123', 'carolina@gmail.com', 'customer'),
+	(20, 'Marcelo', 'b4af804009cb036a4ccdc33431ef9ac9', 'marcelo@gmail.com', 'customer'),
+	(29, 'Karl', 'pass1234', 'karl@gmail.com', 'customer'),
+	(30, 'Bruna', 'mnbvcxzl', 'bruna@gmail.com', 'customer');
+/*!40000 ALTER TABLE `login` ENABLE KEYS */;
+
+-- Dumping structure for table app.shops
+CREATE TABLE IF NOT EXISTS `shops` (
+  `discount_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(50) NOT NULL,
+  `shop_id` int(10) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `discount_given` int(11) NOT NULL DEFAULT 0,
+  `customer` varchar(50) NOT NULL,
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `item_points` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`discount_id`) USING BTREE,
+  KEY `FK_shops_user` (`user_id`),
+  CONSTRAINT `FK_shops_user` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON DELETE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table app.shops: ~12 rows (approximately)
+/*!40000 ALTER TABLE `shops` DISABLE KEYS */;
+INSERT INTO `shops` (`discount_id`, `shop_name`, `shop_id`, `user_id`, `discount_given`, `customer`, `date_added`, `item_points`) VALUES
+	(2, 'Tesco', 5, 10, 6, 'Nala', '2020-05-13 00:00:00', 60),
+	(3, 'Dunnes', 14, 9, 5, 'Welly', '2020-05-14 00:00:00', 50),
+	(4, 'TK Maxx', 12, 8, 15, 'Resende', '2020-05-14 00:00:00', 150),
+	(5, 'Tesco', 5, 10, 20, 'Nala', '2020-05-14 00:00:00', 200),
+	(8, 'Tesco', 5, 9, 30, 'Welly', '0000-00-00 00:00:00', 300),
+	(24, 'Tesco', 5, 10, 50, 'Nala', '2020-05-24 00:00:00', 0),
+	(26, 'Tesco', 5, 8, 15, 'Resende', '2020-05-24 00:00:00', 0),
+	(28, 'TK Maxx', 12, 8, 35, 'Resende', '2020-05-24 00:00:00', 350),
+	(29, 'Tesco', 5, 8, 50, 'Welly', '2020-05-24 00:00:00', 500),
+	(30, 'TK Maxx', 12, 10, 10, 'Nala', '2020-05-24 00:00:00', 100),
+	(31, 'Dunnes', 14, 10, 15, 'Nala', '2020-05-24 00:00:00', 150),
+	(32, 'Tesco', 5, 9, 10, 'Welly', '2020-05-24 00:00:00', 100);
+/*!40000 ALTER TABLE `shops` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

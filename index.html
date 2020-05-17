@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewpoint" content="width=device-width, initial-scale=1, user-scalable=no">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
+<script src="camera.js"></script>
+<script src="js/index.js"></script>
+<link rel="stylesheet" href="app.css">
+<script src="map.js"></script>
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+$(document).on('mobileinit', function(){
+    $.mobile.defaultPageTransition = 'slide';
+});
+</script>
+<script src="js/jquery.mobile-1.4.5.js"></script>
+
+</head>
+<body>
+    <div class="app">
+        <div id="deviceready" class="blink">
+    <!-- Start of first page -->
+    <div data-role="page" id="menu">
+    
+        <div data-role="header" >
+            <h1>Donation App</h1>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+            <img src="donate.png" alt="code"> 
+            <p>This app is to help everyone that wants to donate clothes, objects, etc. that are old or they are not 
+                using anymore. Here you can see all the places you can make the donation and if you want to accumulate points
+            to have disconts with our commercial partners just register. You can see our commercial partners as well.
+            If you are alredy registered click and register and login.</p>
+             <a href="#register" class="ui-btn">Register</a>
+             <a href="#places" class="ui-btn" >Where to Donate</a>
+             <a href="#shops" class="ui-btn">Where you can get Discount</a>
+             <a href="#settings" class="ui-btn" >Settings</a>
+        </div><!-- /content -->
+    
+        <div data-role="footer" data-position="fixed" >
+            <h4>2020 Contact us: 01 800 720 6035</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+
+
+
+    
+    <!-- Start of second page -->
+    <div data-role="page" id="register">
+
+        <div data-role="panel" data-position="right" id="mypanel">
+            <p>I am a Panel</p>
+        </div><!-- /panel -->
+    
+        <div data-role="header">
+            <h1>Register</h1>
+            <a href="#menu" class="ui-btn">back</a>
+        </div><!-- /header -->
+        <div role="main" class="ui-content">
+            <img src="donate.png" alt="code">
+            <form method="POST" id="userRegister" action="register.php" >
+                <fieldset id="customer">
+                 <p><label for="cName"> Username: <input type="text" name="tName" id="cName" size="20" maxlength="30" placeholder="Full Name" required/> </p> 
+                <p><label for="cPass">   Password: <input type="password" name="tPass" id="cPass" size="8" maxlength="8" placeholder="8 digits" required/></p> 
+                <p><label for="cMail"> Email: <input type="email" name="tMail" id="cMail" size="20" maxlength="40" required/>  </p>
+                </fieldset>
+                <input type="submit" value="Send" name="register" /> 
+            </form> 
+    
+            <a href="#subregister" class="ui-btn">Login</a> 
+        </div><!-- /content -->
+        
+        <div data-role="footer" data-position="fixed">
+            <h4>2020 Contact us: 01 800 720 6035</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+
+
+
+ <!-- Start of second page -->
+ <div data-role="page" id="subregister">
+    
+    <div data-role="header">
+    <a href="#register" data-direction="reverse" class="ui-btn">Back</a>
+        <h1> Login</h1>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">
+        <img src="donate.png" alt="code"> 
+        <form method="POST" id="userLogin" action="login.php" >
+            <fieldset id="userLog">
+             <p><label for="cName"> Username: <input type="text" name="tName" id="name" size="20" maxlength="30" placeholder="Full Name"/> </p> 
+            <p><label for="cPass">   Password: <input type="password" name="tPass" id="pass" size="8" maxlength="8" placeholder="8 digits"/></p> 
+            </fieldset>
+            
+            <input type="submit" value="Send" name="login"/> 
+        </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>2020 Contact us: 01 800 720 6035</h4>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+
+
+
+
+
+      <!-- Start of third page -->
+      <div data-role="page" id="places">
+    
+        <div data-role="header">
+            <a href="#menu"  data-direction="reverse" class="ui-btn">Back</a>
+            <h1>Where to donate</h1>
+        </div><!-- /header -->
+    
+        <div role="main" class="ui-content" id="something">
+            <img src="donate.png" alt="code">
+         <p>This page you can find the places where you can make the donation. 
+             Objects you dont want anymore or clothes you dont use anymore.
+             Make some space in the room and in the house
+         </p>
+     
+        </div><!-- /content -->
+        <div id = "map"  ></div>
+        <div id="info_div"></div>
+     
+        <div data-role="footer" data-position="fixed">
+            <h4>2020 Contact us: 01 800 720 6035</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+
+
+
+
+     <!-- Start of fourth page -->
+     <div data-role="page" id="shops">
+    
+        <div data-role="header">
+            <a href="#menu"  data-direction="reverse" class="ui-btn">Back</a>
+            
+            <h1>Where you can get Discounts</h1>
+        </div><!-- /header -->
+    
+        <div role="main" class="ui-content">
+            <img src="donate.png" alt="code"> 
+            <p>These are all the stores that are our partners and where you can get discounts.
+                The discount you get depends on the points you have. Example 50 points €5 euro discount.
+                You have to register with us to get the points and discount. Once you register 
+                and make a donation it depends on what you donate and how many times you donate 
+                you get more points.
+            </p>
+            
+        </div><!-- /content -->
+        <ul id="album-fotos">
+            <li id="foto01"><span>Tesco</span></li>
+            <li id="foto02"><span>Charity</span></li>
+            <li id="foto03"><span>TKMaxx</span></li>
+            <li id="foto04"><span>Oxfam</span></li>
+            <li id="foto05"><span>Dunnes</span></li>
+            <li id="foto06"><span>NCBI</span></li>
+        </ul>
+        <div data-role="footer" data-position="fixed">
+            <h4>2020 Contact us: 01 800 720 6035</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+
+
+
+
+
+
+
+     <!-- Start of fifth page -->
+     <div data-role="page" id="settings">
+    
+        <div data-role="header">
+            <a href="#menu"  data-direction="reverse" class="ui-btn">Back</a>
+            <h1>Settings</h1>
+        </div><!-- /header -->
+    
+        <div role="main" class="ui-content">
+            <button id="takePics" onclick="takePics()"> Read QR Code</button>
+            <button id="buttonPic" onclick="pics()" >QR Code</button>
+
+        </div><!-- /content -->
+     
+        <div data-role="footer" data-position="fixed">
+            <h4>2020 Contact us: 01 800 720 6035</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    </body>
+    <script src="https://maps.googleapis.com/maps/api/js?key=MY KEY HERE &callback=initMap"
+async defer></script>
+</html>
